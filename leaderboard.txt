@@ -1,0 +1,8 @@
+Jack,109
+Lilly,186
+Julius,228
+Fred,57
+JuJu,229
+Keal,234
+Chad,296
+Chad Julius,319
