@@ -1,1 +1,23 @@
 
+Installing Intellij IDEA : go to https://www.jetbrains.com/idea/download/?section=mac and scroll to the community edition download(Silicon or Intel, depends on your model).
+
+Once downloaded, go to https://bell-sw.com/pages/downloads/#jdk-21-lts to download your JDK 21 folder. Scroll down until you see MACOS. Select standard package and select ARM. Download the DMG file(Should be the first choice). When you open the DMG file, make sure (if it isn’t already in there) that you move the package folder into the JavaVirtualMachines folder in your system. The directory for that looks something like this: /Library/Java/JavaVirtualMachines. If you have any trouble, use the Go function at the top for Finder. That or look up how to navigate to that specific folder online. 
+
+Now your ready to create the project.
+
+On IntelliJ IDEA :
+Under projects, select “New Project”.
+Name it whatever you would like
+Make sure the location is in your actual computer, not on anything like OneDrive or ICloud Drive, those can mess up the process.
+On the left, make sure JavaFX is selected as your project type, under Generators.
+Next, add the JDK by selecting “Add a JDK from disk”, and then navigate to the folder you moved it to earlier and select that folder, should be named something like “liberica-21”.
+Select next. Don’t click any extra libraries, you don’t need them right now. Click Create.
+This next part is very specific:
+In the top left, select INTELLIJ IDEA, then select settings. Navigate to the Java Compiler menu, under compilers in Build, Execution, Deployment. Select Javac as the compiler, set Project Bytecode Version to 21. IMPORTANT: Make sure the Target Bytecode is set to 21 for the folder your launcher class is in under Module. Hit apply. 
+Navigate to File, and then to Project Structure in the top left. Under Project, select liberica-21 as your SDK, and the language level to 21. Navigate to Modules. Navigate to the Sources tab, make sure the Language level is at 21. Under the dependencies tab, make sure the Module SDK is set to liberica-21. Go to the SDK tab on the left and click on liberica-21 to make sure it is selected. Hit Apply and Ok. 
+Navigate to the top of your project window. At the top, there is a green run button and a debug button, to the left of those is a dropdown menu labeled “Current File”. Select the dropdown and click “Edit Configurations”. Click the “+” icon in the left upper half of the screen. Select application. Name it something like “Main” or “App”. Run on Local Machine. Build and run should be set to liberica-21. In the Main Class text field, type the directory to your launcher class. In order to figure out the directory, look at your Launcher Class and see what the package is named. For me it is “com.example.demo”. Take this and add the case sensitive name of your class to the end of the statement. Mine looks like this: “com.example.demo.Launcher”.(There is a button on the side of the text field to find your ile). That is what must go in the Main class text field. Click Apply and Ok. 
+
+JavaFX should now run properly on your MacOS system. 
+
+NOTE: When you see a suggestion to import, make sure it is NOT the awt import versions. Use the JavaFX imports ONLY. Otherwise, you will get errors. 
+
