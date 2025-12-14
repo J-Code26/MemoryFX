@@ -3,7 +3,6 @@ package com.example.memoryfx;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.scene.control.TextInputDialog;
 
@@ -16,7 +15,6 @@ public class Randomize {
     private int lives = 50;
     private final GameGrid grid;
     private int score;
-    private Label livesLabel;
     private int roundTotalCorrect;
     private int roundCorrectClicked;
     public final ArrayList<ArrayList<Integer>> pattern;
@@ -32,11 +30,6 @@ public class Randomize {
         this.pattern = new ArrayList<>();
         generatePattern();
     }
-
-    public Randomize(GameGrid grid, int rows, int cols) {
-        this(grid, rows, cols, 0, 50);
-    }
-
     public void setOnRoundComplete(OnRoundComplete callback) {
         this.onRoundComplete = callback;
     }

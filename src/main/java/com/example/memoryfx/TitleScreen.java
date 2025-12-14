@@ -4,22 +4,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
 
 public class TitleScreen {
-    private BorderPane root;
+    private final BorderPane root;
 
     //This constructor creates the game from the button on the title screen and ensures the formatting.
     public TitleScreen(Stage stage) {
         root = new BorderPane();
         Label titleLabel = new Label("Grid Memory Game");
         titleLabel.setStyle("-fx-font-size: 70px; -fx-font-weight: bold;");
-
         Button startBtn = new Button("Start Game");
         startBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10 20;");
         startBtn.setOnAction(event -> {
@@ -58,8 +55,6 @@ public class TitleScreen {
             if (parts.length < 2) {
                 continue;
             }
-            String name = parts[0];
-            int score = Integer.parseInt(parts[1]);
             if (parts.length == 2) {
                 box.getChildren().add(new Label(parts[0] + " - " + parts[1]));
             }

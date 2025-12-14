@@ -5,10 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class GameGrid {
-    private int rows;
-    private int cols;
-    private Button[][] buttons;
-    private GridPane gridPane;
+    private final int rows;
+    private final int cols;
+    private final Button[][] buttons;
+    private final GridPane gridPane;
 
     public GameGrid(int rows, int cols) {
         this.rows = rows;

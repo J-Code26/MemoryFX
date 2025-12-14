@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 
 public class Leaderboard {
-    private static final String FILE_NAME = "leaderboard.txt";
 
     //This function writes the variables score and name to my file
     public static void saveScore(String name, int score) {

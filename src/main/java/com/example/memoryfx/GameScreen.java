@@ -1,5 +1,6 @@
 package com.example.memoryfx;
 
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,24 +11,23 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameScreen {
-    private BorderPane root = new BorderPane();
+    private final BorderPane root = new BorderPane();
     private GameGrid grid;
     private Randomize randomize;
     private int score;
     private int lives;
-    private Stage stage;
-    private TitleScreen titleScreen;
-    private Label scoreLabel = new Label();
-    private Label lifeLabel = new Label();
+    private final Stage stage;
+    private final TitleScreen titleScreen;
+    private final Label scoreLabel = new Label();
+    private final Label lifeLabel = new Label();
+    private final Label popupLabel = new Label("Grid Beaten! Size Upgrade!");
+    private final Label nextLabel = new Label();
     private int lastThresholdHit = 0;
 
 
     //I found that using an array instead of if statements flowed better for how I used the thresholds.
-    private final int[] thresholds = {50, 100, 200, 300};
+    private final int[] thresholds = {50,150,250,350};
 
-    public GameScreen(Stage stage) {
-        this(stage, 3, 3, 0);
-    }
 
     public GameScreen(Stage stage, int rows, int cols, int startingScore) {
         this.stage = stage;
@@ -54,13 +54,21 @@ public class GameScreen {
             score = newScore;
             scoreLabel.setText("Score: " + score);
 
-            for (int t : thresholds) {
-                if (score == t && lives > 0 && lastThresholdHit != t) {
-                    lastThresholdHit = t;
-                    increaseGridSize();
-                    break;
+
+                for (int i = 0; i < thresholds.length; i++) {
+                    int t = thresholds[i];
+                    if (score == t && lives > 0 && lastThresholdHit != t) {
+                        showTemporaryLabel(popupLabel);
+                        lastThresholdHit = t;
+                        if (i + 1 < thresholds.length) {
+                            nextLabel.setText("Threshold: " + thresholds[i + 1]);
+                        } else {
+                            nextLabel.setText("Threshold: Infinity!");
+                        }
+                        increaseGridSize();
+                        break;
+                    }
                 }
-            }
         });
 
         root.setCenter(grid.getGridPane());
@@ -74,25 +82,29 @@ public class GameScreen {
         //I did not know how to use the padding properly, and I also was having issues
         //with overlapping buttons due to lack of knowledge.
         Label titleLabel = new Label("Grid Memory Game");
-        titleLabel.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
+        titleLabel.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
         scoreLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         lifeLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         lifeLabel.setText("Lives: " + randomize.getLives());
+        popupLabel.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
+        popupLabel.setVisible(false);
+        nextLabel.setText("Next Threshold: " + thresholds[0]);
+        nextLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        HBox upperBox = new HBox(40, titleLabel, scoreLabel, lifeLabel);
+        HBox upperBox = new HBox(40, titleLabel, scoreLabel, lifeLabel, nextLabel);
 
         upperBox.setAlignment(Pos.CENTER);
         root.setTop(upperBox);
 
-        Button revealAgainBtn = new Button("Reveal Again");
+        Button nextBtn = new Button("Next Pattern");
         Button returnBtn = new Button("Return to Home Screen");
         Button exitBtn = new Button("Exit");
 
-        revealAgainBtn.setOnAction(e -> {
+        nextBtn.setOnAction(e -> {
             if(!randomize.getRoundActive()) {
                 randomize.resetBoard();
-                randomize.revealPattern(Duration.seconds(1.5), () -> revealAgainBtn.setDisable(false));
-                revealAgainBtn.setDisable(true);
+                randomize.revealPattern(Duration.seconds(1.5), () -> nextBtn.setDisable(false));
+                nextBtn.setDisable(true);
             }
         });
 
@@ -103,7 +115,7 @@ public class GameScreen {
 
         });
 
-        HBox bottomBox = new HBox(40, returnBtn, revealAgainBtn, exitBtn);
+        HBox bottomBox = new HBox(40, returnBtn, nextBtn, exitBtn, popupLabel);
         bottomBox.setAlignment(Pos.CENTER);
         bottomBox.setPadding(new Insets(20, 0, 20, 0));
         root.setBottom(bottomBox);
@@ -111,9 +123,23 @@ public class GameScreen {
 
     //This function determines the size of the grid.
     public void increaseGridSize() {
-        int newRows = grid.getRows() + 1;
-        int newCols = grid.getCols() + 1;
-        initializeGrid(newRows, newCols, randomize.getScore(), this.lives);
+        grid.getGridPane().setDisable(true);
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+
+        pause.setOnFinished(e -> {
+            int newRows = grid.getRows() + 1;
+            int newCols = grid.getCols() + 1;
+            initializeGrid(newRows, newCols, randomize.getScore(), this.lives);
+        });
+        pause.play();
+    }
+
+    public void showTemporaryLabel(Label tempLabel){
+        tempLabel.setVisible(true);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(e -> tempLabel.setVisible(false));
+        pause.play();
     }
 
     public BorderPane getRoot() {
