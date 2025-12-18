@@ -10,7 +10,7 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("Grid Memory Game");
          TitleScreen title = new TitleScreen(stage);
-         Scene scene = new Scene(title.getRoot(), 800, 800);
+         Scene scene = new Scene(title.getRoot(), 1000, 800);
 
          stage.setScene(scene);
          stage.show();
