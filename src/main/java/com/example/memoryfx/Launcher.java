@@ -8,7 +8,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Grid Memory Game");
+        stage.setTitle("MemoryFX");
          TitleScreen title = new TitleScreen(stage);
          Scene scene = new Scene(title.getRoot(), 1000, 800);
 

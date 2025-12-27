@@ -15,7 +15,7 @@ public class TitleScreen {
     //This constructor creates the game from the button on the title screen and ensures the formatting.
     public TitleScreen(Stage stage) {
         root = new BorderPane();
-        Label titleLabel = new Label("Grid Memory Game");
+        Label titleLabel = new Label("MemoryFX");
         titleLabel.setStyle("-fx-font-size: 70px; -fx-font-weight: bold;");
         Button startBtn = new Button("Start Game");
         startBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10 20;");

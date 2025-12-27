@@ -81,7 +81,7 @@ public class GameScreen {
         //I did a lot of research using AI to figure out how to format everything the way I did.
         //I did not know how to use the padding properly, and I also was having issues
         //with overlapping buttons due to lack of knowledge.
-        Label titleLabel = new Label("Grid Memory Game");
+        Label titleLabel = new Label("MemoryFX");
         titleLabel.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
         scoreLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         lifeLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
