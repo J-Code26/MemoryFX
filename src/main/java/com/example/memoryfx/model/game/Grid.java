@@ -25,4 +25,13 @@ public class Grid {
             }
         }
     }
+    
+    public void printGrid() {
+        for (Tile[] tile : tiles) {
+            for (Tile i : tile) {
+                System.out.println(i);
+            }
+            System.out.println();
+        }
+    }
 }
